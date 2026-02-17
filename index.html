@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MM Sprayworks | Bespoke Spray Finishing & Colour Matching</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            color: #0f172a; 
+            background-color: #ffffff; 
+            overflow-x: hidden;
+        }
+        
+        .reveal { opacity: 1; transform: translateY(0); } 
+        
+        .glass-nav { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: saturate(180%) blur(20px); 
+        }
+        .hero-mesh {
+            background-color: #ffffff;
+            background-image: radial-gradient(at 0% 0%, hsla(210,100%,98%,1) 0, transparent 50%), 
+                              radial-gradient(at 100% 100%, hsla(200,100%,97%,1) 0, transparent 50%);
+        }
+        .btn-primary {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        
+        /* Standard CSS for Inputs */
+        .input-field {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            border-radius: 1rem;
+            border: 2px solid #f1f5f9;
+            background-color: rgba(248, 250, 252, 0.8);
+            color: #0f172a;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+        .input-field:focus {
+            border-color: #0f172a;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(241, 245, 249, 0.5);
+        }
+        
+        /* WhatsApp Integration */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            z-index: 100;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .whatsapp-btn:hover { transform: scale(1.1) rotate(5deg); }
+
+        /* Carousel Styles */
+        .carousel-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            filter: grayscale(0.2);
+        }
+        .carousel-slide.active {
+            opacity: 1;
+            filter: grayscale(0);
+        }
+        .carousel-caption {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.7s ease 0.3s;
+        }
+        .carousel-slide.active .carousel-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Palette Expansion Styles */
+        .palette-expansion {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0;
+            border-top-width: 0;
+        }
+        .palette-card.active .palette-expansion {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top-width: 1px;
+        }
+        .palette-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .palette-card:hover {
+            border-color: #0f172a;
+            transform: translateY(-2px);
+        }
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        .palette-card.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        .swatch-btn {
+            transition: transform 0.3s ease;
+        }
+        .swatch-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-100">
+
+    <!-- WhatsApp Floating Action -->
+    <a href="https://wa.me/447595545808" target="_blank" class="whatsapp-btn" title="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold tracking-tighter text-2xl uppercase text-slate-900">MM SPRAYWORKS</span>
+            </div>
+            <div class="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700">
+                <a href="#matching" class="hover:text-black transition-colors">Colour Matching</a>
+                <a href="#quote" class="bg-black text-white px-7 py-2.5 rounded-full hover:bg-slate-800 transition-all shadow-sm normal-case tracking-normal">Start My Quote</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 hero-mesh px-6 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            <div class="relative z-10 text-center lg:text-left">
+                <div id="hero-tag" class="reveal inline-flex items-center gap-2 px-4 py-1.5 mb-8 text-[10px] font-bold tracking-[0.3em] text-blue-800 bg-blue-50 rounded-full uppercase border border-blue-200">
+                    Bespoke Spray Finishing
+                </div>
+                <h1 id="hero-title" class="reveal text-6xl md:text-[90px] font-extrabold tracking-tighter leading-[0.9] mb-10 text-slate-900">
+                    Any Surface.<br/>
+                    <span class="text-slate-400">Any Colour.</span>
+                </h1>
+                <p id="hero-para" class="reveal text-lg md:text-xl text-slate-800 max-w-xl mb-12 leading-relaxed font-normal">
+                    Professional spray finishing and precision colour matching for kitchens, furniture, and architectural elements. Industrial-grade results on any substrate.
+                </p>
+                <div id="hero-btns" class="reveal flex flex-col sm:flex-row justify-center lg:justify-start gap-5">
+                    <a href="#quote" class="bg-black text-white px-12 py-5 rounded-2xl font-bold text-lg btn-primary text-center">Start My Quote</a>
+                    <a href="https://wa.me/447595545808" class="bg-white border border-slate-300 text-slate-900 px-12 py-5 rounded-2xl font-bold text-lg btn-primary text-center flex items-center justify-center gap-2">
+                        WhatsApp Us
+                    </a>
+                </div>
+            </div>
+            <div class="reveal relative hidden lg:block">
+                <div class="aspect-square bg-slate-50 rounded-[60px] relative overflow-hidden shadow-2xl border border-slate-200">
+                    <!-- IMAGE LINK: images/hero-spray.jpeg -->
+                    <img src="images/hero-spray.jpeg" 
+                         alt="Bespoke Finish" class="w-full h-full object-cover grayscale opacity-90"
+                         onerror="this.src='https://images.unsplash.com/photo-1595844730298-b960ff98fee0?auto=format&fit=crop&q=80&w=2070'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Symmetrical Precision & Factory Section -->
+    <section id="matching" class="py-40 px-6 bg-slate-50/50 border-y border-slate-100 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 lg:gap-32 relative">
+            
+            <!-- Vertical Divider (Desktop Only) -->
+            <div class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-200"></div>
+
+            <!-- Left: Precision Colour Matching -->
+            <div class="reveal space-y-12">
+                <!-- Text Container with min-height for alignment -->
+                <div class="flex flex-col justify-start lg:min-h-[220px]">
+                    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-8 text-slate-900">Precision Colour Matching.</h2>
+                    <p class="text-slate-800 text-xl leading-relaxed font-normal">
+                        We match any colour from leading manufacturers including <strong class="text-slate-950 font-bold underline decoration-blue-500/30">RAL, Farrow & Ball, Dulux, Paint & Paper Library, and Little Greene</strong>.
+                    </p>
+                </div>
+
+                <!-- 4 Interactive Brand Cards (Accordion Style) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <!-- RAL Card -->
+                    <div class="palette-card p-8 rounded-3xl bg-white shadow-sm border border-slate-200 h-fit">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="w-14 h-14 rounded-2xl bg-[#343d46] shadow-lg mb-6"></div>
+                                <h3 class="font-bold text-2xl text-slate-900">RAL Classic</h3>
+                                <p class="text-[11px] text-slate-600 uppercase tracking-widest mt-1 font-bold">Anthracite Grey</p>
+                            </div>
+                            <div class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center toggle-icon text-slate-400">↓</div>
+                        </div>
+                        <div class="palette-expansion grid grid-cols-4 gap-2 border-t border-slate-50">
+                            <div class="aspect-square rounded-lg bg-[#343d46]" title="Anthracite"></div>
+                            <div class="aspect-square rounded-lg bg-[#8da399]" title="Sage"></div>
+                            <div class="aspect-square rounded-lg bg-[#1e293b]" title="Midnight"></div>
+                            <div class="aspect-square rounded-lg bg-[#bcbcbc]" title="Silk"></div>
+                        </div>
+                    </div>
+
+                    <!-- Farrow & Ball Card -->
+                    <div class="palette-card p-8 rounded-3xl bg-white shadow-sm border border-slate-200 h-fit">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="w-14 h-14 rounded-2xl bg-[#f1f0ea] shadow-lg mb-6"></div>
+                                <h3 class="font-bold text-2xl text-slate-900">Farrow & Ball</h3>
+                                <p class="text-[11px] text-slate-600 uppercase tracking-widest mt-1 font-bold">Wimborne White</p>
+                            </div>
+                            <div class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center toggle-icon text-slate-400">↓</div>
+                        </div>
+                        <div class="palette-expansion grid grid-cols-4 gap-2 border-t border-slate-50">
+                            <div class="aspect-square rounded-lg bg-[#f1f0ea]" title="Wimborne"></div>
+                            <div class="aspect-square rounded-lg bg-[#2b3d41]" title="Hague Blue"></div>
+                            <div class="aspect-square rounded-lg bg-[#2c2c2e]" title="Railings"></div>
+                            <div class="aspect-square rounded-lg bg-[#8e8780]" title="Elephant"></div>
+                        </div>
+                    </div>
+
+                    <!-- Dulux Card -->
+                    <div class="palette-card p-8 rounded-3xl bg-white shadow-sm border border-slate-200 h-fit">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="w-14 h-14 rounded-2xl bg-[#f0c952] shadow-lg mb-6"></div>
+                                <h3 class="font-bold text-2xl text-slate-900">Dulux</h3>
+                                <p class="text-[11px] text-slate-600 uppercase tracking-widest mt-1 font-bold">Honey Beam</p>
+                            </div>
+                            <div class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center toggle-icon text-slate-400">↓</div>
+                        </div>
+                        <div class="palette-expansion grid grid-cols-4 gap-2 border-t border-slate-50">
+                            <div class="aspect-square rounded-lg bg-[#f0c952]" title="Honey Beam"></div>
+                            <div class="aspect-square rounded-lg bg-[#e05a48]" title="Pepper Red"></div>
+                            <div class="aspect-square rounded-lg bg-[#2b88bf]" title="Sapphire"></div>
+                            <div class="aspect-square rounded-lg bg-[#7ab855]" title="Kiwi"></div>
+                        </div>
+                    </div>
+
+                    <!-- Paint & Paper Library Card -->
+                    <div class="palette-card p-8 rounded-3xl bg-white shadow-sm border border-slate-200 h-fit">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="w-14 h-14 rounded-2xl bg-[#a84d57] shadow-lg mb-6"></div>
+                                <h3 class="font-bold text-2xl text-slate-900">Paint & Paper</h3>
+                                <p class="text-[11px] text-slate-600 uppercase tracking-widest mt-1 font-bold">Rhubarb</p>
+                            </div>
+                            <div class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center toggle-icon text-slate-400">↓</div>
+                        </div>
+                        <div class="palette-expansion grid grid-cols-4 gap-2 border-t border-slate-50">
+                            <div class="aspect-square rounded-lg bg-[#a84d57]" title="Rhubarb"></div>
+                            <div class="aspect-square rounded-lg bg-[#e6c35c]" title="Chinese Emperor"></div>
+                            <div class="aspect-square rounded-lg bg-[#4b665c]" title="Hunter Dunn"></div>
+                            <div class="aspect-square rounded-lg bg-[#232937]" title="Blue Blood"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right: Factory Standard Finishes (Carousel Mode) -->
+            <div class="reveal space-y-12">
+                <!-- Text Container with min-height for alignment -->
+                <div class="flex flex-col justify-start lg:text-right lg:min-h-[220px]">
+                    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-8 text-slate-900">Factory Standard Finishes.</h2>
+                    <p class="text-slate-800 text-xl leading-relaxed font-normal">
+                        Industrial-grade durability and professional-standard coatings on any architectural substrate.
+                    </p>
+                </div>
+
+                <!-- Single Frame Carousel -->
+                <div class="relative w-full aspect-square rounded-[40px] overflow-hidden shadow-2xl border border-slate-100 bg-white group">
+                    <!-- Slide 1: Wood -->
+                    <div class="carousel-slide active">
+                        <img src="images/carousel-wood.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1588345921523-c2dcd57f7dca?auto=format&fit=crop&q=80&w=800'">
+                        <div class="carousel-caption">
+                            <h4 class="text-xl font-bold text-slate-900">Wood & Joinery</h4>
+                        </div>
+                    </div>
+                    <!-- Slide 2: Metal -->
+                    <div class="carousel-slide">
+                        <img src="images/carousel-metal.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1533033512395-5853f587d15a?auto=format&fit=crop&q=80&w=800'">
+                        <div class="carousel-caption">
+                            <h4 class="text-xl font-bold text-slate-900">Liquid Metal Finishes</h4>
+                        </div>
+                    </div>
+                    <!-- Slide 3: Glass -->
+                    <div class="carousel-slide">
+                        <img src="images/carousel-glass.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1533154683836-84ea7a0bc310?auto=format&fit=crop&q=80&w=800'">
+                        <div class="carousel-caption">
+                            <h4 class="text-xl font-bold text-slate-900">Glass</h4>
+                        </div>
+                    </div>
+                    <!-- Slide 4: Plastic -->
+                    <div class="carousel-slide">
+                        <img src="images/carousel-plastic.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1596495573105-3156d6123d8a?auto=format&fit=crop&q=80&w=800'">
+                        <div class="carousel-caption">
+                            <h4 class="text-xl font-bold text-slate-900">Plastic</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Quote Form -->
+    <section id="quote" class="py-40 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 text-slate-900 text-balance">Start My Quote</h2>
+                <p class="text-slate-800 text-xl font-normal mb-2">Tell us about your project.</p>
+                <p class="text-slate-600">Please fill in the boxes below and we'll respond within 24 hours.</p>
+            </div>
+            
+            <form name="quote-request" method="POST" data-netlify="true" enctype="multipart/form-data" class="reveal bg-white border border-slate-100 p-8 md:p-16 rounded-[50px] shadow-2xl shadow-slate-200/50">
+                <!-- IMPORTANT: This hidden input is required for Netlify to detect the form name -->
+                <input type="hidden" name="form-name" value="quote-request" />
+                
+                <div class="grid md:grid-cols-2 gap-10 mb-10">
+                    <div>
+                        <label class="text-[12px] font-bold uppercase tracking-widest text-slate-900 mb-4 block ml-2">Full Name</label>
+                        <input type="text" name="name" required class="input-field" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label class="text-[12px] font-bold uppercase tracking-widest text-slate-900 mb-4 block ml-2">Phone Number</label>
+                        <input type="tel" name="phone" required class="input-field" placeholder="020 3633 9007">
+                    </div>
+                </div>
+                <div class="mb-10">
+                    <label class="text-[12px] font-bold uppercase tracking-widest text-slate-900 mb-4 block ml-2">Email Address</label>
+                    <input type="email" name="email" required class="input-field" placeholder="mmsprayworks@icloud.com">
+                </div>
+                <div class="mb-10">
+                    <label class="text-[12px] font-bold uppercase tracking-widest text-slate-900 mb-4 block ml-2">Project Description</label>
+                    <textarea name="message" rows="5" required class="input-field" placeholder="e.g. Respraying 15 kitchen cabinet doors in Farrow & Ball Hague Blue..."></textarea>
+                </div>
+                
+                <!-- File Upload Section -->
+                <div class="mb-12">
+                    <label class="text-[12px] font-bold uppercase tracking-widest text-slate-900 mb-4 block ml-2">Upload Photos (Optional)</label>
+                    <input type="file" name="attachment" multiple 
+                        class="block w-full text-sm text-slate-500
+                        file:mr-5 file:py-4 file:px-8
+                        file:rounded-xl file:border-0
+                        file:text-xs file:font-bold file:uppercase file:tracking-widest
+                        file:bg-slate-900 file:text-white
+                        hover:file:bg-slate-800
+                        cursor-pointer bg-slate-50/50 rounded-2xl border-2 border-slate-100 p-2 transition-all"
+                    />
+                </div>
+
+                <button type="submit" class="w-full bg-black text-white py-6 rounded-3xl font-bold text-xl btn-primary">Submit My Quote Request</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Details Grid -->
+    <section class="py-32 bg-slate-900 px-6 border-y border-white/5">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-20">
+            <div class="reveal">
+                <h5 class="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-400 mb-8">Studio Address</h5>
+                <p class="text-2xl font-bold tracking-tight text-white leading-tight">
+                    Unit 15, 19 Bernard Rd<br/>
+                    South Tottenham, London<br/>
+                    N15 4NE
+                </p>
+            </div>
+            <div class="reveal">
+                <h5 class="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-400 mb-8">Contact Direct</h5>
+                <p class="text-2xl font-bold tracking-tight text-white">020 3633 9007</p>
+                <a href="mailto:MMSPRAYWORKS@ICLOUD.COM" class="inline-block mt-4 bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all border border-slate-700 hover:border-slate-500">
+                    EMAIL US NOW
+                </a>
+            </div>
+            <div class="reveal">
+                <h5 class="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-400 mb-8">Studio Hours</h5>
+                <p class="text-2xl font-bold tracking-tight text-white">Mon - Fri &nbsp; 8am – 5pm</p>
+                <p class="text-sm text-slate-500 mt-4 uppercase tracking-widest font-bold">Closed Weekends</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6 max-w-7xl mx-auto text-center border-t border-slate-100">
+        <div class="mb-10">
+            <span class="font-extrabold tracking-tighter text-sm uppercase text-slate-900">MM SPRAYWORKS</span>
+        </div>
+        
+        <div class="flex justify-center gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 mb-6">
+            <a href="https://www.facebook.com/MMSPRAYWORKSUK?ref=1" target="_blank" class="hover:text-black transition-colors">Facebook</a>
+            <a href="https://www.instagram.com/mmsprayworks/?hl=en" target="_blank" class="hover:text-black transition-colors">Instagram</a>
+            <a href="https://www.tiktok.com/@mmsprayworks?_r=1&_t=ZN-93rjL1bTiMA" target="_blank" class="hover:text-black transition-colors">TikTok</a>
+        </div>
+        
+        <div class="flex flex-col md:flex-row justify-center items-center gap-4 text-[10px] font-bold text-slate-900 uppercase tracking-[0.5em]">
+            <span>&copy; 2026</span>
+            <span class="hidden md:block text-slate-200">|</span>
+            <span>FRSHBITS SYSTEMS</span>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                const tl = gsap.timeline();
+                tl.from("#hero-tag", { opacity: 0, y: 30, duration: 1, ease: "power4.out" })
+                  .from("#hero-title", { opacity: 0, y: 30, duration: 1.2, ease: "power4.out" }, "-=0.8")
+                  .from("#hero-para", { opacity: 0, y: 30, duration: 1.2, ease: "power4.out" }, "-=1")
+                  .from("#hero-btns", { opacity: 0, y: 30, duration: 1.2, ease: "power4.out" }, "-=1");
+
+                gsap.utils.toArray(".reveal").forEach((elem) => {
+                    if (elem.id && elem.id.startsWith("hero")) return;
+                    gsap.from(elem, {
+                        opacity: 0, y: 30, duration: 1.2, ease: "power3.out",
+                        scrollTrigger: { trigger: elem, start: "top 90%", toggleActions: "play none none none" }
+                    });
+                });
+
+                // Carousel Logic with Safety Checks
+                const slides = document.querySelectorAll('.carousel-slide');
+                if (slides.length > 0) {
+                    let currentSlide = 0;
+
+                    function nextSlide() {
+                        if(slides[currentSlide]) {
+                            slides[currentSlide].classList.remove('active');
+                        }
+                        
+                        currentSlide = (currentSlide + 1) % slides.length;
+                        
+                        if(slides[currentSlide]) {
+                            slides[currentSlide].classList.add('active');
+                        }
+                    }
+
+                    setInterval(nextSlide, 3500); 
+                }
+
+                // Palette Accordion Logic
+                const paletteCards = document.querySelectorAll('.palette-card');
+                
+                paletteCards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        // To allow only one open at a time, uncomment below:
+                        // paletteCards.forEach(c => {
+                        //     if (c !== card) c.classList.remove('active');
+                        // });
+                        
+                        card.classList.toggle('active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
