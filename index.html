@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MM Sprayworks | Bespoke Spray Finishing & Colour Matching</title>
     
-    <!-- Favicon (Generated "M" Icon - No external file needed) -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' style='background:%230f172a;border-radius:8px;'%3E%3Ctext x='50%25' y='60%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold' font-size='22'%3EM%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <!-- Real Favicon Generator Links (Ensure these files are in your /images folder) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="images/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#0f172a">
+    <meta name="theme-color" content="#ffffff">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,6 +28,7 @@
             overflow-x: hidden;
         }
         
+        /* Ensure content is visible by default so UI loads even if JS is delayed */
         .reveal { opacity: 1; transform: translateY(0); } 
         
         .glass-nav { 
@@ -234,7 +240,7 @@
                             </div>
                             <div class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center toggle-icon text-slate-400">↓</div>
                         </div>
-                        <div class="palette-expansion grid grid-cols-4 gap-2 border-slate-50">
+                        <div class="palette-expansion grid grid-cols-4 gap-2 border-t border-slate-50">
                             <div class="aspect-square rounded-lg bg-[#343d46]" title="Anthracite"></div>
                             <div class="aspect-square rounded-lg bg-[#8da399]" title="Sage"></div>
                             <div class="aspect-square rounded-lg bg-[#1e293b]" title="Midnight"></div>
@@ -252,7 +258,7 @@
                             </div>
                             <div class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center toggle-icon text-slate-400">↓</div>
                         </div>
-                        <div class="palette-expansion grid grid-cols-4 gap-2 border-slate-50">
+                        <div class="palette-expansion grid grid-cols-4 gap-2 border-t border-slate-50">
                             <div class="aspect-square rounded-lg bg-[#f1f0ea]" title="Wimborne"></div>
                             <div class="aspect-square rounded-lg bg-[#2b3d41]" title="Hague Blue"></div>
                             <div class="aspect-square rounded-lg bg-[#2c2c2e]" title="Railings"></div>
@@ -270,7 +276,7 @@
                             </div>
                             <div class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center toggle-icon text-slate-400">↓</div>
                         </div>
-                        <div class="palette-expansion grid grid-cols-4 gap-2 border-slate-50">
+                        <div class="palette-expansion grid grid-cols-4 gap-2 border-t border-slate-50">
                             <div class="aspect-square rounded-lg bg-[#f0c952]" title="Honey Beam"></div>
                             <div class="aspect-square rounded-lg bg-[#e05a48]" title="Pepper Red"></div>
                             <div class="aspect-square rounded-lg bg-[#2b88bf]" title="Sapphire"></div>
@@ -288,7 +294,7 @@
                             </div>
                             <div class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center toggle-icon text-slate-400">↓</div>
                         </div>
-                        <div class="palette-expansion grid grid-cols-4 gap-2 border-slate-50">
+                        <div class="palette-expansion grid grid-cols-4 gap-2 border-t border-slate-50">
                             <div class="aspect-square rounded-lg bg-[#a84d57]" title="Rhubarb"></div>
                             <div class="aspect-square rounded-lg bg-[#e6c35c]" title="Chinese Emperor"></div>
                             <div class="aspect-square rounded-lg bg-[#4b665c]" title="Hunter Dunn"></div>
