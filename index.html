@@ -11,7 +11,7 @@
     <meta name="author" content="MM Sprayworks" />
     <link rel="canonical" href="https://mmsprayworks.co.uk/" />
 
-    <!-- SEO: Open Graph (Facebook, WhatsApp, LinkedIn previews) -->
+    <!-- SEO: Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://mmsprayworks.co.uk/" />
     <meta property="og:title" content="MM Sprayworks | Spray Finishing & Colour Matching — North London" />
@@ -29,7 +29,7 @@
     <meta name="twitter:description" content="Professional spray finishing and precision colour matching in North London. Kitchen cabinet resprays, furniture refinishing & RAL/Farrow & Ball colour matching." />
     <meta name="twitter:image" content="https://mmsprayworks.co.uk/images/hero-spray.jpeg" />
 
-    <!-- SEO: LocalBusiness Schema Markup -->
+    <!-- SEO: LocalBusiness Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -60,28 +60,11 @@
           "closes": "17:00"
         }
       ],
-      "areaServed": [
-        "North London",
-        "South Tottenham",
-        "Haringey",
-        "Hackney",
-        "Islington",
-        "Enfield",
-        "Waltham Forest"
-      ],
-      "serviceType": [
-        "Spray Finishing",
-        "Colour Matching",
-        "Kitchen Cabinet Respray",
-        "Furniture Refinishing",
-        "Architectural Metalwork Finishing"
-      ],
+      "areaServed": ["North London","South Tottenham","Haringey","Hackney","Islington","Enfield","Waltham Forest"],
+      "serviceType": ["Spray Finishing","Colour Matching","Kitchen Cabinet Respray","Furniture Refinishing","Architectural Metalwork Finishing"],
       "priceRange": "££",
       "image": "https://mmsprayworks.co.uk/images/hero-spray.jpeg",
-      "sameAs": [
-        "https://www.instagram.com/mmsprayworks/",
-        "https://www.tiktok.com/@mmsprayworks"
-      ],
+      "sameAs": ["https://www.instagram.com/mmsprayworks/","https://www.tiktok.com/@mmsprayworks"],
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "5.0",
@@ -604,7 +587,7 @@
             <div class="reveal">
                 <h5 class="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-400 mb-8">Contact Direct</h5>
                 <p class="text-2xl font-bold tracking-tight text-white">020 3633 9007</p>
-                <a href="/cdn-cgi/l/email-protection#0845455b585a49515f475a435b48414b44475d4c264b4745" class="inline-block mt-4 bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all border border-slate-700 hover:border-slate-500">
+                <a href="/cdn-cgi/l/email-protection#eca1a1bfbcbeadb5bba3bea7bfaca5afa0a3b9a8c2afa3a1" class="inline-block mt-4 bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all border border-slate-700 hover:border-slate-500">
                     EMAIL US NOW
                 </a>
             </div>
@@ -637,96 +620,86 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        document.addEventListener("DOMContentLoaded", (event) => {
-            if (typeof gsap !== 'undefined') {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ── IMAGE CAROUSEL (independent of GSAP) ──────────────────────
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (slides.length > 0) {
+                let currentSlide = 0;
+                // Ensure first slide is active on load
+                slides[currentSlide].classList.add('active');
+
+                function nextSlide() {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }
+                setInterval(nextSlide, 3500);
+            }
+
+            // ── PALETTE ACCORDION (independent of GSAP) ───────────────────
+            const paletteCards = document.querySelectorAll('.palette-card');
+            paletteCards.forEach(function(card) {
+                card.addEventListener('click', function() {
+                    card.classList.toggle('active');
+                });
+            });
+
+            // ── REVIEW CAROUSEL (independent of GSAP) ─────────────────────
+            const reviewTrack = document.getElementById('review-track');
+            const prevReviewBtn = document.getElementById('prev-review');
+            const nextReviewBtn = document.getElementById('next-review');
+
+            if (reviewTrack && prevReviewBtn && nextReviewBtn) {
+                let reviewIndex = 0;
+
+                function updateReviewPos() {
+                    var isDesktop = window.innerWidth >= 768;
+                    var shiftPercent = isDesktop ? 50 : 100;
+                    var maxIndex = isDesktop ? 1 : 2;
+                    if (reviewIndex > maxIndex) reviewIndex = 0;
+                    if (reviewIndex < 0) reviewIndex = maxIndex;
+                    // Use CSS transform directly — no GSAP dependency
+                    reviewTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    reviewTrack.style.transform = 'translateX(-' + (reviewIndex * shiftPercent) + '%)';
+                }
+
+                nextReviewBtn.addEventListener('click', function() {
+                    reviewIndex++;
+                    updateReviewPos();
+                });
+                prevReviewBtn.addEventListener('click', function() {
+                    reviewIndex--;
+                    updateReviewPos();
+                });
+                // Gentle auto-cycle
+                setInterval(function() {
+                    reviewIndex++;
+                    updateReviewPos();
+                }, 6000);
+            }
+
+            // ── GSAP ANIMATIONS (only if GSAP loaded) ─────────────────────
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
-                const tl = gsap.timeline();
-                tl.from("#hero-tag", { opacity: 0, y: 30, duration: 1, ease: "power4.out" })
+                var tl = gsap.timeline();
+                tl.from("#hero-tag",   { opacity: 0, y: 30, duration: 1,   ease: "power4.out" })
                   .from("#hero-title", { opacity: 0, y: 30, duration: 1.2, ease: "power4.out" }, "-=0.8")
-                  .from("#hero-para", { opacity: 0, y: 30, duration: 1.2, ease: "power4.out" }, "-=1")
-                  .from("#hero-btns", { opacity: 0, y: 30, duration: 1.2, ease: "power4.out" }, "-=1");
+                  .from("#hero-para",  { opacity: 0, y: 30, duration: 1.2, ease: "power4.out" }, "-=1")
+                  .from("#hero-btns",  { opacity: 0, y: 30, duration: 1.2, ease: "power4.out" }, "-=1");
 
-                gsap.utils.toArray(".reveal").forEach((elem) => {
+                gsap.utils.toArray(".reveal").forEach(function(elem) {
                     if (elem.id && elem.id.startsWith("hero")) return;
                     gsap.from(elem, {
                         opacity: 0, y: 30, duration: 1.2, ease: "power3.out",
                         scrollTrigger: { trigger: elem, start: "top 90%", toggleActions: "play none none none" }
                     });
                 });
+            }
 
-                // Carousel Logic with Safety Checks
-                const slides = document.querySelectorAll('.carousel-slide');
-                if (slides.length > 0) {
-                    let currentSlide = 0;
-
-                    function nextSlide() {
-                        if(slides[currentSlide]) {
-                            slides[currentSlide].classList.remove('active');
-                        }
-                        
-                        currentSlide = (currentSlide + 1) % slides.length;
-                        
-                        if(slides[currentSlide]) {
-                            slides[currentSlide].classList.add('active');
-                        }
-                    }
-
-                    setInterval(nextSlide, 3500); 
-                }
-
-                // Palette Accordion Logic
-                const paletteCards = document.querySelectorAll('.palette-card');
-                
-                paletteCards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        // To allow only one open at a time, uncomment below:
-                        // paletteCards.forEach(c => {
-                        //     if (c !== card) c.classList.remove('active');
-                        // });
-                        
-                        card.classList.toggle('active');
-                    });
-                });
-
-                // --- REVIEW CAROUSEL LOGIC ---
-                const reviewTrack = document.getElementById('review-track');
-                const prevReviewBtn = document.getElementById('prev-review');
-                const nextReviewBtn = document.getElementById('next-review');
-                
-                if (reviewTrack && prevReviewBtn && nextReviewBtn) {
-                    let reviewIndex = 0;
-                    
-                    const updateReviewPos = () => {
-                        const isDesktop = window.innerWidth >= 768;
-                        const shiftPercent = isDesktop ? 50 : 100; 
-                        // If desktop (2 items visible), max index is count - 2. If mobile (1 item), count - 1.
-                        // We have 3 items. 
-                        // Desktop: Shows [0,1], then [1,2]. Max index = 1.
-                        // Mobile: Shows [0], [1], [2]. Max index = 2.
-                        const maxIndex = isDesktop ? 1 : 2; 
-                        
-                        if(reviewIndex > maxIndex) reviewIndex = 0;
-                        if(reviewIndex < 0) reviewIndex = maxIndex;
-                        
-                        gsap.to(reviewTrack, { 
-                            xPercent: -(reviewIndex * shiftPercent), 
-                            duration: 0.5, 
-                            ease: "power2.out" 
-                        });
-                    };
-
-                    nextReviewBtn.addEventListener('click', () => {
-                        reviewIndex++;
-                        updateReviewPos();
-                    });
-
-                    prevReviewBtn.addEventListener('click', () => {
-                        reviewIndex--;
-                        updateReviewPos();
-                    });
-                    
-                    // Auto-play (optional, gentle cycle)
-                    setInterval(() => {
-                        reviewI
+        });
+    </script>
+</body>
+</html>
