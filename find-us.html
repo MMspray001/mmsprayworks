@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find MM Sprayworks Studio — The Old Timber Yard, N17</title>
+
+    <!-- OG tags for WhatsApp / SMS preview -->
+    <meta property="og:title" content="MM Sprayworks — Find the Studio" />
+    <meta property="og:description" content="The Old Timber Yard, 55 Moorefield Road, London N17 6PT. Mon–Fri 8am–5pm. Tap for directions." />
+    <meta property="og:image" content="https://mmsprayworks.co.uk/images/hero-spray.jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://mmsprayworks.co.uk/find-us.html" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="description" content="The Old Timber Yard, 55 Moorefield Road, London N17 6PT. Tap for directions to MM Sprayworks studio." />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --slate-900: #0f172a;
+            --slate-700: #334155;
+            --slate-500: #64748b;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --blue-400: #60a5fa;
+            --white: #ffffff;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background: var(--slate-900);
+            color: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100svh;
+            padding: 24px 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px;
+            background: #131e30;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+        }
+
+        /* Header */
+        .card-header {
+            padding: 28px 28px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-mark {
+            width: 44px;
+            height: 44px;
+            background: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-mark img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .logo-mark-fallback {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--slate-900);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        .brand-name {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .brand-tag {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--slate-500);
+            margin-top: 2px;
+            letter-spacing: 0.02em;
+        }
+
+        /* Map thumbnail */
+        .map-block {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            background: #1a2640;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+
+
+        /* Address block */
+        .address-block {
+            padding: 20px 28px 8px;
+        }
+
+        .address-label {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--blue-400);
+            margin-bottom: 8px;
+        }
+
+        .address-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .address-street {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--slate-500);
+            line-height: 1.5;
+        }
+
+        /* Info row */
+        .info-row {
+            display: flex;
+            gap: 0;
+            padding: 16px 28px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            margin-top: 16px;
+        }
+
+        .info-item {
+            flex: 1;
+        }
+
+        .info-item + .info-item {
+            border-left: 1px solid rgba(255,255,255,0.06);
+            padding-left: 20px;
+        }
+
+        .info-label {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--slate-500);
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.3;
+        }
+
+        /* CTA buttons */
+        .cta-block {
+            padding: 16px 28px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-directions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 16px;
+            background: var(--white);
+            color: var(--slate-900);
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 16px;
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-directions:active {
+            transform: scale(0.97);
+        }
+
+        .btn-directions svg {
+            flex-shrink: 0;
+        }
+
+        .btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-secondary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 14px 12px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-secondary:active {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Footer */
+        .card-footer {
+            text-align: center;
+            padding-bottom: 20px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.2);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <!-- Header -->
+    <div class="card-header">
+        <div class="logo-mark">
+            <img src="images/logo.png" alt="MM Sprayworks"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <span class="logo-mark-fallback" style="display:none">MM<br>SW</span>
+        </div>
+        <div>
+            <div class="brand-name">MM Sprayworks</div>
+            <div class="brand-tag">Spray Finishing · North London</div>
+        </div>
+    </div>
+
+    <!-- Bespoke Map -->
+    <div class="map-block" id="mapBlock">
+        <svg width="100%" height="100%" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" style="display:block">
+
+          <!-- Background -->
+          <rect width="400" height="180" fill="#1a2640"/>
+
+          <!-- Block fills -->
+          <rect x="0" y="0" width="148" height="68" fill="#1e2e47"/>
+          <rect x="220" y="0" width="180" height="68" fill="#1e2e47"/>
+          <rect x="0" y="112" width="148" height="68" fill="#1e2e47"/>
+          <rect x="220" y="112" width="180" height="68" fill="#1e2e47"/>
+
+          <!-- Green space -->
+          <rect x="224" y="116" width="60" height="40" rx="4" fill="#1d3028" opacity="0.7"/>
+          <rect x="236" y="124" width="8" height="8" rx="1" fill="#1f3a2e" opacity="0.5"/>
+          <rect x="252" y="120" width="14" height="14" rx="2" fill="#1f3a2e" opacity="0.5"/>
+          <rect x="270" y="126" width="8" height="10" rx="1" fill="#1f3a2e" opacity="0.4"/>
+
+          <!-- Building details -->
+          <rect x="8" y="8" width="52" height="28" rx="2" fill="#213356" opacity="0.6"/>
+          <rect x="68" y="12" width="36" height="22" rx="2" fill="#213356" opacity="0.5"/>
+          <rect x="8" y="44" width="80" height="18" rx="2" fill="#213356" opacity="0.4"/>
+          <rect x="232" y="8" width="60" height="32" rx="2" fill="#213356" opacity="0.6"/>
+          <rect x="302" y="8" width="80" height="20" rx="2" fill="#213356" opacity="0.5"/>
+          <rect x="238" y="48" width="40" height="16" rx="2" fill="#213356" opacity="0.4"/>
+          <rect x="8" y="120" width="70" height="32" rx="2" fill="#213356" opacity="0.6"/>
+          <rect x="84" y="124" width="50" height="24" rx="2" fill="#213356" opacity="0.5"/>
+          <rect x="8" y="158" width="90" height="16" rx="2" fill="#213356" opacity="0.4"/>
+          <rect x="296" y="120" width="90" height="28" rx="2" fill="#213356" opacity="0.5"/>
+          <rect x="298" y="154" width="60" height="18" rx="2" fill="#213356" opacity="0.4"/>
+
+          <!-- Moorefield Road — vertical -->
+          <rect x="152" y="0" width="66" height="180" fill="#243652"/>
+          <line x1="185" y1="10"  x2="185" y2="30"  stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="185" y1="44"  x2="185" y2="64"  stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="185" y1="78"  x2="185" y2="98"  stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="185" y1="112" x2="185" y2="132" stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="185" y1="146" x2="185" y2="166" stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+
+          <!-- Watermead Way — horizontal -->
+          <rect x="0" y="68" width="400" height="44" fill="#243652"/>
+          <line x1="10"  y1="90" x2="38"  y2="90" stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="52"  y1="90" x2="80"  y2="90" stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="94"  y1="90" x2="122" y2="90" stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="232" y1="90" x2="260" y2="90" stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="274" y1="90" x2="302" y2="90" stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="316" y1="90" x2="344" y2="90" stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+          <line x1="358" y1="90" x2="386" y2="90" stroke="#2e4a6e" stroke-width="1.5" stroke-dasharray="8 6"/>
+
+          <!-- Kerb lines -->
+          <line x1="152" y1="0"   x2="152" y2="68"  stroke="#2a3f5e" stroke-width="0.5"/>
+          <line x1="218" y1="0"   x2="218" y2="68"  stroke="#2a3f5e" stroke-width="0.5"/>
+          <line x1="152" y1="112" x2="152" y2="180" stroke="#2a3f5e" stroke-width="0.5"/>
+          <line x1="218" y1="112" x2="218" y2="180" stroke="#2a3f5e" stroke-width="0.5"/>
+          <line x1="0"   y1="68"  x2="152" y2="68"  stroke="#2a3f5e" stroke-width="0.5"/>
+          <line x1="0"   y1="112" x2="152" y2="112" stroke="#2a3f5e" stroke-width="0.5"/>
+          <line x1="218" y1="68"  x2="400" y2="68"  stroke="#2a3f5e" stroke-width="0.5"/>
+          <line x1="218" y1="112" x2="400" y2="112" stroke="#2a3f5e" stroke-width="0.5"/>
+
+          <!-- Road labels -->
+          <text font-family="Inter,sans-serif" font-size="9" font-weight="600" fill="#4a6a96"
+                x="185" y="150" text-anchor="middle" transform="rotate(-90 185 150)">Moorefield Rd</text>
+          <text font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="#4a6a96"
+                x="72" y="93" text-anchor="middle">Watermead Way</text>
+          <text font-family="Inter,sans-serif" font-size="7.5" font-weight="500" fill="#3d5a80"
+                x="316" y="93" text-anchor="middle">Ferry Lane</text>
+
+          <!-- Site footprint highlight -->
+          <rect x="156" y="4" width="58" height="60" rx="3" fill="#ffffff" opacity="0.06"/>
+          <rect x="156" y="4" width="58" height="60" rx="3" fill="none" stroke="#ffffff" stroke-width="0.75" opacity="0.25"/>
+
+          <!-- Pin at junction -->
+          <g transform="translate(185, 72)">
+            <ellipse cx="0" cy="2" rx="7" ry="3" fill="#000" opacity="0.3"/>
+            <path d="M0,-28 C-11,-28 -16,-18 -16,-11 C-16,2 0,18 0,18 C0,18 16,2 16,-11 C16,-18 11,-28 0,-28 Z" fill="#ffffff"/>
+            <circle cx="0" cy="-11" r="6" fill="#0f172a"/>
+          </g>
+
+          <!-- Label callout -->
+          <rect x="88" y="26" width="122" height="32" rx="6" fill="#0f172a" opacity="0.9"/>
+          <polygon points="149,60 144,70 154,70" fill="#0f172a" opacity="0.9"/>
+          <text font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#ffffff"
+                x="149" y="39" text-anchor="middle" letter-spacing="0.2">The Old Timber Yard</text>
+          <text font-family="Inter,sans-serif" font-size="8" font-weight="400" fill="#60a5fa"
+                x="149" y="51" text-anchor="middle">55 Moorefield Rd · N17</text>
+
+          <!-- Compass -->
+          <g transform="translate(374,158)" opacity="0.35">
+            <line x1="0" y1="-8" x2="0" y2="8" stroke="#7a9cc4" stroke-width="1"/>
+            <line x1="-8" y1="0" x2="8" y2="0" stroke="#7a9cc4" stroke-width="1"/>
+            <text font-family="Inter,sans-serif" font-size="7" fill="#7a9cc4" x="0" y="-10" text-anchor="middle">N</text>
+          </g>
+
+        </svg>
+    </div>
+
+    <!-- Address -->
+    <div class="address-block">
+        <div class="address-label">Studio Address</div>
+        <div class="address-name">The Old Timber Yard</div>
+        <div class="address-street">55 Moorefield Road<br>London, N17 6PT</div>
+    </div>
+
+    <!-- Info row -->
+    <div class="info-row">
+        <div class="info-item">
+            <div class="info-label">Hours</div>
+            <div class="info-value">Mon–Fri<br>8am – 5pm</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Phone</div>
+            <div class="info-value">020 3633 9007</div>
+        </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cta-block">
+        <a href="#" id="directionsBtn" class="btn-directions">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+            </svg>
+            Get Directions
+        </a>
+        <div class="btn-row">
+            <a href="tel:02036339007" class="btn-secondary">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+                </svg>
+                Call Us
+            </a>
+            <a href="https://wa.me/447595545808" class="btn-secondary">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                WhatsApp
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<div class="card-footer" style="margin-top: 20px;">
+    MMSPRAYWORKS.CO.UK
+</div>
+
+<script>
+    // Device-aware directions link
+    // iPhone → Apple Maps, everything else → Google Maps
+    const dest = '55+Moorefield+Road+London+N17+6PT';
+    const googleMaps = 'https://www.google.com/maps/dir/?api=1&destination=' + dest;
+    const appleMaps  = 'https://maps.apple.com/?daddr=' + dest + '&dirflg=d';
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const mapsURL = isIOS ? appleMaps : googleMaps;
+
+    document.getElementById('directionsBtn').href = mapsURL;
+
+    // Also make the map block tappable
+    document.getElementById('mapBlock').addEventListener('click', function() {
+        window.open(mapsURL, '_blank');
+    });
+    document.getElementById('mapBlock').style.cursor = 'pointer';
+</script>
+
+</body>
+</html>
